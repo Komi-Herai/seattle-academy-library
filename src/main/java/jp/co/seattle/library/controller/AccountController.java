@@ -65,8 +65,5 @@ public class AccountController {
 			return "createAccount";
 		}
 
-		// パラメータで受け取ったアカウント情報をDtoに格納する。
-
 	}
-
 }
