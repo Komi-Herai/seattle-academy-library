@@ -46,8 +46,8 @@ public class LoginController {
 		if (ObjectUtils.isEmpty(selectedUserInfo)) {
 			model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
 			return "login";
-	}else{
-		return "redirect:/home";
-	      }  
+		} else {
+			return "redirect:/home";
+		}
 	}
 }
