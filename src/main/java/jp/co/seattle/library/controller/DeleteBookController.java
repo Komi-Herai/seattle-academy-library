@@ -25,7 +25,7 @@ public class DeleteBookController {
 
 		// 書籍情報を更新する
 		booksService.deleteBook(bookId);
-
+		
 		// 一覧画面に遷移する
 		return "redirect:/home";
 	}
