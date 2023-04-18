@@ -68,7 +68,7 @@ public class BooksService {
 				bookInfo.getThumbnailUrl(), bookInfo.getIsbn(), bookInfo.getDescription());
 		return bookId;
 	}
-
+	
 	/**
 	 * 書籍を削除する
 	 * 
@@ -76,10 +76,10 @@ public class BooksService {
 	 */
 	public void deleteBook(int bookId) {
 		// TODO 対象の書籍を削除するようにSQLを修正（タスク6）
-		String sql = "";
+		String sql = "DELETE FROM books WHERE books.Id = ?;";
 		jdbcTemplate.update(sql, bookId);
 	}
-
+	
 	/**
 	 * 書籍情報を更新する
 	 * 
