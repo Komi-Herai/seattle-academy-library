@@ -3,6 +3,7 @@ package jp.co.seattle.library.commonutil;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class BookUtil {
 	 * @return errorList エラーメッセージのリスト
 	 */
 	public List<String> checkBookInfo(BookDetailsInfo bookInfo) {
-		
+
 		//TODO　各チェックNGの場合はエラーメッセージをリストに追加（タスク４）
 		List<String> errorList = new ArrayList<>();
 		// 必須チェック
@@ -38,13 +39,12 @@ public class BookUtil {
 			errorList.add(ISBN_ERROR);
 		}
 		// 出版日の形式チェック
-		if (checkDate(bookInfo.getPublishDate())) {
-		} else {
+		if (!(checkDate(bookInfo.getPublishDate()))) {
 			errorList.add(PUBLISHDATE_ERROR);
 		}
 		return errorList;
 	}
-	
+
 	/**
 	 * 日付の形式が正しいかどうか
 	 * 
@@ -53,17 +53,18 @@ public class BookUtil {
 	 */
 	private static boolean checkDate(String publishDate) {
 		try {
+			if (publishDate.isEmpty()) {
+				return true;
+			}
 			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			formatter.setLenient(false); // ←これで厳密にチェックしてくれるようになる
 			//TODO　取得した日付の形式が正しければtrue（タスク４）
-			if (publishDate.length() > 0) {
-				if (publishDate.length() == 8) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
+			Date date1 = formatter.parse(publishDate);
+			String date2 = formatter.format(date1);
+			if (date2.equals(publishDate)) {
 				return true;
+			} else {
+				return false;
 			}
 		} catch (Exception p) {
 			p.printStackTrace();
@@ -78,8 +79,8 @@ public class BookUtil {
 	 * @return ISBNが半角数字で10文字か13文字かどうか
 	 */
 	private static boolean isValidIsbn(String isbn) {
-		//TODO　ISBNが半角数字で10文字か13文字であればtrue（タスク４）
-		if (isbn.length() > 0) {
+		//TODO　ISBNが半角数字で10文字か13文字であればtrue（タスク４
+		if (!(isbn.isEmpty())) {
 			if ((isbn.matches("^[0-9]+$") && isbn.length() == 10 || isbn.length() == 13)) {
 				return true;
 			} else {
