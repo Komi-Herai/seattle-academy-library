@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
+import jp.co.seattle.library.dto.BookDetailsInfo;
 import jp.co.seattle.library.dto.UserInfo;
 import jp.co.seattle.library.rowMapper.UserCountRowMapper;
 
@@ -51,5 +52,10 @@ public class UsersService {
 			return null;
 		}
 	}
+
+	public void newPassword(String password) {
+			// TODO 取得した書籍情報を更新するようにSQLを修正（タスク５）
+			String sql = "UPDATE password SET password = ? WHERE password = users;";
+			UserInfo selectedUserInfo = jdbcTemplate.update(sql, UserInfo.password());
 
 }

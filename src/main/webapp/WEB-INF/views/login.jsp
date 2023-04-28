@@ -30,7 +30,8 @@
                 </form>
             </div>
             <div class="authorization_navi">
-                <label class="authorization_text">まだアカウントをお持ちでないですか？</label> <a class="authorization_link marker" href="<%=request.getContextPath()%>/newAccount">アカウント作成</a>
+                <label class="authorization_text">まだアカウントをお持ちでないですか？</label> <a class="authorization_link marker" href="<%=request.getContextPath()%>/newAccount">アカウント作成</a> 
+                <label class="authorization_text">パスワードをお忘れですか？</label> <a class="authorization_link marker" href="<%=request.getContextPath()%>/newPassword">パスワード再発行</a>
             </div>
         </div>
         <footer>
