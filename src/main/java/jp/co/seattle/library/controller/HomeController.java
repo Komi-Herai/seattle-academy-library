@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.service.BooksService;
@@ -34,6 +35,13 @@ public class HomeController {
 		//書籍の一覧情報を取得（タスク３）
 		List<BookInfo> book = booksService.getBookList();
 		model.addAttribute("booklist", book);
+		return "home";
+	}
+
+	@RequestMapping(value = "/searchBooks", method = RequestMethod.GET)
+	public String getSearch(Model model, @RequestParam(name = "search") String search) {
+		List<BookInfo> books = booksService.getSearch(search);
+		model.addAttribute("booklist", books);
 		return "home";
 	}
 }

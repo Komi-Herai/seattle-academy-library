@@ -68,7 +68,7 @@ public class BooksService {
 				bookInfo.getThumbnailUrl(), bookInfo.getIsbn(), bookInfo.getDescription());
 		return bookId;
 	}
-	
+
 	/**
 	 * 書籍を削除する
 	 * 
@@ -79,7 +79,7 @@ public class BooksService {
 		String sql = "DELETE FROM books WHERE books.Id = ?;";
 		jdbcTemplate.update(sql, bookId);
 	}
-	
+
 	/**
 	 * 書籍情報を更新する
 	 * 
@@ -99,5 +99,13 @@ public class BooksService {
 					bookInfo.getPublishDate(), bookInfo.getThumbnailName(), bookInfo.getThumbnailUrl(),
 					bookInfo.getIsbn(), bookInfo.getDescription(), bookInfo.getBookId());
 		}
+	}
+
+	public List<BookInfo> getSearch(String search) {
+		String sql = "SELECT * FROM books WHERE title LIKE ? ORDER BY title ASC";
+		String searchBookList = "%" + search + "%";
+		List<BookInfo> searchedBooks = jdbcTemplate.query(sql, new BookInfoRowMapper(), searchBookList);
+
+		return searchedBooks;
 	}
 }
