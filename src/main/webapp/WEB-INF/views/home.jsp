@@ -31,9 +31,9 @@
             <c:if test="${!empty resultMessage}">
                 <div class="error_msg">${resultMessage}</div>
             </c:if>
-            <form method="get" action="<%=request.getContextPath()%>/searchBooks" class="btn_search_book">
+            <form method="get" action="<%=request.getContextPath()%>/searchBooks" class="search_book">
                 <input type="text" name="search" placeholder="書籍名を入力してください">
-                <button type="submit">検索窓</button>
+                <button type="submit">検索</button>
                 <div>
                     <div class="booklist">
                         <c:forEach var="bookInfo" items="${booklist}">
