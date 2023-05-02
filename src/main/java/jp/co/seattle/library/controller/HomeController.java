@@ -34,14 +34,25 @@ public class HomeController {
 	public String transitionHome(Model model) {
 		//書籍の一覧情報を取得（タスク３）
 		List<BookInfo> book = booksService.getBookList();
-		model.addAttribute("booklist", book);
-		return "home";
+		if (!book.isEmpty()) {
+			model.addAttribute("booklist", book);
+			return "home";
+		} else {
+			model.addAttribute("errorMessage", "書籍データがありません");
+			return "home";
+		}
+
 	}
 
 	@RequestMapping(value = "/searchBooks", method = RequestMethod.GET)
 	public String getSearch(Model model, @RequestParam(name = "search") String search) {
 		List<BookInfo> books = booksService.getSearch(search);
-		model.addAttribute("booklist", books);
-		return "home";
+		if (!books.isEmpty()) {
+			model.addAttribute("booklist", books);
+			return "home";
+		} else {
+			model.addAttribute("errorMessage", "検索結果がありません");
+			return "home";
+		}
 	}
 }
