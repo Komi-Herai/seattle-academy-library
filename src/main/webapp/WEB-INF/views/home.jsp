@@ -36,7 +36,7 @@
             </c:if>
             <form method="get" action="<%=request.getContextPath()%>/searchBooks" class="btn_search_book">
                 <input type="text" name="search" placeholder="書籍名を入力してください">
-                <button type="submit">検索窓</button>
+                <button type="submit">検索</button>
             </form>
             <div class="booklist">
                 <c:forEach var="bookInfo" items="${booklist}">
