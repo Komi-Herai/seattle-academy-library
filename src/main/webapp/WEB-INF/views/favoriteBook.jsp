@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>書籍の追加｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
+<link href="<c:url value="/resources/css/reset.css" />" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+<link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link href="<c:url value="/resources/css/home.css" />" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="resources/js/thumbnail.js"></script>
+</head>
+<body class="wrapper">
+    <header>
+        <div class="left">
+            <img class="mark" src="resources/img/logo.png" />
+            <div class="logo">Seattle Library</div>
+        </div>
+        <div class="right">
+            <ul>
+                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                <li><a href="https://www.google.co.jp/?client=safari&channel=mac_bm" target="_blank">Google</a></li>
+                <li><a href="<%=request.getContextPath()%>/favoriteList" class="menu">お気に入り</a></li>
+                <li><a href="<%=request.getContextPath()%>/Inquiries" class="menu">お問い合わせ</a></li>
+                <li><a id="logOut">ログアウト</a></li>
+            </ul>
+        </div>
+        <!--ドロワーメニューのコード-->
+        <div class="overlay"></div>
+        <nav class="nav">
+            <div class="toggle">
+                <span id="deleteconpo" class="toggler"></span>
+            </div>
+            <div class="logo-menu">
+                <a href="#">Seattle Library</a>
+            </div>
+            <ul>
+                <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+                <li><a href="https://www.google.co.jp/?client=safari&channel=mac_bm" target="_blank">Google</a></li>
+                <li><a href="<%=request.getContextPath()%>/favoriteList" class="menu">お気に入り</a></li>
+                <li><a href="<%=request.getContextPath()%>/Inquiries" class="menu">お問い合わせ</a></li>
+                <li><a id="logOut-menu">ログアウト</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>お気に入り一覧</h1>
+        <div class="content_body">
+            <c:if test="${!empty resultMessage}">
+                <div class="error_msg">${resultMessage}</div>
+            </c:if>
+            <c:if test="${!empty errorMessage}">
+                <div class="error_msg">${errorMessage}</div>
+            </c:if>
+            <form method="get" action="<%=request.getContextPath()%>/searchBooks" class="btn_search_book">
+                <input type="text" name="search" placeholder="書籍名を入力してください">
+                <button type="submit">検索</button>
+            </form>
+            <div class="booklist">
+                <c:forEach var="bookInfo" items="${booklist}">
+                    <div class="books">
+                        <form method="get" class="book_thumnail" action="editBook">
+                            <a href="javascript:void(0)" onclick="this.parentNode.submit();"> <c:if test="${empty bookInfo.thumbnail}">
+                                    <img class="book_noimg" src="resources/img/noImg.png">
+                                </c:if> <c:if test="${!empty bookInfo.thumbnail}">
+                                    <img class="book_noimg" src="${bookInfo.thumbnail}">
+                                </c:if>
+                            </a> <input type="hidden" name="bookId" value="${bookInfo.bookId}">
+                        </form>
+                        <ul>
+                            <li class="book_title">${bookInfo.title}</li>
+                            <li class="book_author">(著)${bookInfo.author}</li>
+                            <li class="book_publisher">出版社:${bookInfo.publisher}</li>
+                            <li class="book_publish_date">出版日:${bookInfo.publishDate}</li>
+                        </ul>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+        </div>
+    </main>
+    <!--モーダルウィンドウjsp -->
+    <div class="modal">
+        <div class="logOut-check" id="logOut-check">
+            <h2>ログアウトしてよろしいですか？</h2>
+            <form method="get" action="modalLogOut" />
+            <button type="submit" class="btn-logOut-check">はい</button>
+            </form>
+            <form method="get" action="favoriteList" />
+            <button type="submit" class="btn-logOut-check">いいえ</button>
+            </form>
+        </div>
+    </div>
+    <!-- ログアウトのモーダルウィンドウのjs -->
+    <script>
+                    $(function() {
+                        $('#logOut').click(function() {
+                            $('.modal').fadeIn();
+                        })
+                    });
+                </script>
+    <script>
+                    $(function() {
+                        $('#logOut-menu').click(function() {
+                            $('.modal').fadeIn();
+                        })
+                    });
+                </script>
+    <!-- ドロワーメニューのjs -->
+    <script>
+    const toggler = document.querySelector(".toggle");
+
+    window.addEventListener("click", event => {
+      if(event.target.className == "toggle" || event.target.className == "toggle") {
+        document.body.classList.toggle("show-nav");
+        document.getElementById("deleteconpo").classList.toggle("deleteclass")
+      } else if (event.target.className == "overlay") {
+        document.body.classList.remove("show-nav");
+    document.getElementById("deleteconpo").classList.toggle("deleteclass")
+      }
+
+    });
+</script>
+</body>
+</html>
